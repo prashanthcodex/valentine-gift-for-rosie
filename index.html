@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Valentine Proposal</title>
+  <style>
+    body {
+      text-align: center;
+      background: pink;
+      font-family: 'Comic Sans MS', cursive;
+      overflow: hidden;
+    }
+    h1 {
+      margin-top: 50px;
+      color: red;
+      font-size: 2.5em;
+      animation: heartbeat 1s infinite;
+    }
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+    button {
+      margin: 20px;
+      padding: 15px 30px;
+      font-size: 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    #yesBtn {
+      background-color: red;
+      color: white;
+    }
+    #noBtn {
+      background-color: white;
+      color: red;
+      border: 2px solid red;
+    }
+    .bouquet {
+      display: none;
+      font-size: 60px;
+      margin-top: 30px;
+      animation: grow 3s forwards;
+    }
+    @keyframes grow {
+      from { transform: scale(0); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .loveMsg {
+      display: none;
+      font-size: 2.5em;
+      color: purple;
+      margin-top: 20px;
+      animation: fadeIn 3s forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .loveNote {
+      display: none;
+      font-size: 1.5em;
+      color: darkred;
+      margin-top: 20px;
+      animation: fadeIn 3s forwards;
+    }
+    .flower {
+      position: absolute;
+      font-size: 30px;
+      animation: fall 5s linear forwards;
+    }
+    @keyframes fall {
+      from { top: -50px; opacity: 1; }
+      to { top: 100vh; opacity: 0; }
+    }
+    #happyCat, #sadCat {
+      display: none;
+      margin-top: 20px;
+    }
+    #happyCat img, #sadCat img {
+      width: 200px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Will you be my Valentine? ❤️</h1>
+  <button id="yesBtn">Yes 💖✨</button>
+  <button id="noBtn">No 💔</button>
+
+  <div class="bouquet">💐🌷🌷🌷💐</div>
+  <div class="loveMsg">I LOVE YOU ROSIE 💜</div>
+  <div class="loveNote">From the moment we met, my world changed forever. You are my heart, my happiness, and my Valentine always. ❤️</div>
+
+  <!-- Song (replace src with your hosted MP3 link or keep YouTube embed) -->
+  <audio id="song" src="https://raw.githubusercontent.com/prashanthcodex/music-sorce-file/refs/heads/main/until_i_found_you.mp3.mp3"></audio>
+
+  <!-- Cartoon reactions -->
+  <div id="happyCat">
+    <img src="https://media.tenor.com/2vWcYwYl9qkAAAAC/cute-cat.gif" alt="Happy Cat">
+  </div>
+  <div id="sadCat">
+    <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdzBpd216eHBtOXU3NjkwZHZsenhsNW83b2p0YWlqY2tpazE1ZThxdCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/sXv0vaA4331Ti/giphy.gif" alt="Sad Cat">
+  </div>
+
+  <script>
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const bouquet = document.querySelector('.bouquet');
+    const loveMsg = document.querySelector('.loveMsg');
+    const loveNote = document.querySelector('.loveNote');
+    const song = document.getElementById('song');
+    const happyCat = document.getElementById('happyCat');
+    const sadCat = document.getElementById('sadCat');
+
+    let yesSize = 1;
+
+    // No button enlarges Yes and shows sad cat
+    noBtn.addEventListener('click', () => {
+      yesSize += 0.2;
+      yesBtn.style.transform = `scale(${yesSize})`;
+      sadCat.style.display = 'block';
+      happyCat.style.display = 'none';
+    });
+
+    // Yes button triggers everything and shows happy cat
+    yesBtn.addEventListener('click', () => {
+      bouquet.style.display = 'block';
+      loveMsg.style.display = 'block';
+      loveNote.style.display = 'block';
+      happyCat.style.display = 'block';
+      sadCat.style.display = 'none';
+
+      // Play song
+      song.play().catch(() => {
+        console.log("Autoplay blocked, user must tap play.");
+      });
+
+      // Falling flowers
+      for (let i = 0; i < 15; i++) {
+        const flower = document.createElement('div');
+        flower.className = 'flower';
+        flower.textContent = '🌸';
+        flower.style.left = Math.random() * window.innerWidth + 'px';
+        flower.style.animationDuration = (3 + Math.random() * 3) + 's';
+        document.body.appendChild(flower);
+        setTimeout(() => flower.remove(), 6000);
+      }
+    });
+  </script>
+</body>
+</html>
